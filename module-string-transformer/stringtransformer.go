@@ -69,7 +69,8 @@ func toTitle() {
 	if text == "" {
 		fmt.Println("Text Block Can Not Be Empty")
 	}
-	words := []string{"for", "nor", "on", "at", "to", "by", "in", "of", "up", "as", "is", "it"}
+	words := map[string]bool{
+		"for": true, "nor": true, "on": true, "at": true, "to": true, "by": true, "in": true, "of": true, "up": true, "as": true, "is": true, "it": true}
 
 	if strings.ContainsAny(text, words[0]) {
 		text = strings.ToLower(text[:1])
