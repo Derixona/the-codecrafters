@@ -11,8 +11,10 @@ import (
 var reader = bufio.NewReader(os.Stdin)
 
 func main() {
-	//var text string
-
+	var (
+		text string
+		err  error
+	)
 	for {
 		//menu:
 		fmt.Println("====> SENTINEL REPORT PANEL =====> ")
@@ -25,8 +27,9 @@ func main() {
 		fmt.Print("Select Action: ")
 		actionSelector, _ := reader.ReadString('\n')
 		actionSelector = strings.TrimSpace(actionSelector)
-		actionSelectorInput, err := strconv.Atoi(actionSelector)
-		if err != nil {
+		actionSelectorInput, actioerr := strconv.Atoi(actionSelector)
+
+		if actioerr != nil {
 			fmt.Println("Pick A Text Format!!")
 			continue
 		}
@@ -35,7 +38,7 @@ func main() {
 		case 1:
 			fmt.Println("===> ToUpper ===>")
 			fmt.Print("Enter Text: ")
-			text, _ := reader.ReadString('\n')
+			text, _ = reader.ReadString('\n')
 			text = strings.ToUpper(text)
 			// if text == "" {
 			// 	fmt.Println("Text Block Can Not Be Empty")
@@ -44,19 +47,27 @@ func main() {
 		case 2:
 			fmt.Println("===> ToLower ===>")
 			fmt.Print("Enter Text: ")
-			text, _ := reader.ReadString('\n')
+			text, _ = reader.ReadString('\n')
 			text = strings.ToLower(text)
 			fmt.Println(text)
 		case 3:
-			var captext string
+
 			fmt.Println("===> ToCap ===>")
 			fmt.Print("Enter Text: ")
-			captext, _ = reader.ReadString('\n')
-			word := strings.Split(captext, " ")
+			text, err = reader.ReadString('\n')
+			if err != nil {
+				fmt.Println("Error Reading Text")
+			}
+			text = strings.TrimSpace(text)
+			if text == "" {
+				fmt.Println("Text Block Can Not Be Empty")
+				continue
+			}
+
+			word := strings.Fields(text)
 			for i := range word {
-				word[i] = strings.ToUpper(word[i][:1]) + strings.ToLower(word[i][1:])
-				words := strings.Join(word, " ")
-				fmt.Println(words)
+				word[i] = strings.ToUpper(string(word[i][0])) + strings.ToLower(word[i][1:])
+				fmt.Println(word)
 				break
 			}
 
