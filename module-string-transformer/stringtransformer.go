@@ -9,12 +9,82 @@ import (
 )
 
 var reader = bufio.NewReader(os.Stdin)
+var (
+	text string
+	err  error
+)
+
+func toUpper() {
+	fmt.Println("===> ToUpper ===>")
+	fmt.Print("Enter Text: ")
+	text, _ = reader.ReadString('\n')
+	text = strings.ToUpper(text)
+	text = strings.TrimSpace(text)
+	if text == "" {
+		fmt.Print("Text Block Can Not Be Empty")
+
+	}
+	fmt.Println(text)
+}
+
+func toLower() {
+	fmt.Println("===> ToLower ===>")
+	fmt.Print("Enter Text: ")
+	text, _ = reader.ReadString('\n')
+	text = strings.ToLower(text)
+	fmt.Println(text)
+
+}
+
+func toCap() {
+textblock:
+	fmt.Println("===> ToCap ===>")
+	fmt.Print("Enter Text: ")
+	text, err = reader.ReadString('\n')
+	if err != nil {
+		fmt.Println("Error Reading Text")
+	}
+	text = strings.TrimSpace(text)
+	if text == "" {
+		fmt.Println("Text Block Can Not Be Empty")
+		goto textblock
+	}
+
+	word := strings.Fields(text)
+	for i := range word {
+		word[i] = strings.ToUpper(string(word[i][:1])) + strings.ToLower(word[i][1:])
+
+	}
+	fmt.Println(word)
+}
+func toTitle() {
+
+	fmt.Println("===> ToTitle ===>")
+	fmt.Print("Enter Text: ")
+	text, err = reader.ReadString('\n')
+	if err != nil {
+		fmt.Println("Error Reading Text")
+	}
+	text = strings.TrimSpace(text)
+	if text == "" {
+		fmt.Println("Text Block Can Not Be Empty")
+	}
+	words := []string{"for", "nor", "on", "at", "to", "by", "in", "of", "up", "as", "is", "it"}
+
+	if strings.ContainsAny(text, words[0]) {
+		text = strings.ToLower(text[:1])
+	}
+
+	text = strings.ToUpper(text)
+	fmt.Println(text)
+}
+func toSnake() {
+	text = strings.ReplaceAll(text, " ", "_")
+	fmt.Println(text)
+}
 
 func main() {
-	var (
-		text string
-		err  error
-	)
+
 	for {
 		//menu:
 		fmt.Println("====> SENTINEL REPORT PANEL =====> ")
@@ -30,47 +100,19 @@ func main() {
 		actionSelectorInput, actioerr := strconv.Atoi(actionSelector)
 
 		if actioerr != nil {
-			fmt.Println("Pick A Text Format!!")
+			fmt.Println("Pick An Action To Format Your Text!!")
 			continue
 		}
 
 		switch actionSelectorInput {
 		case 1:
-			fmt.Println("===> ToUpper ===>")
-			fmt.Print("Enter Text: ")
-			text, _ = reader.ReadString('\n')
-			text = strings.ToUpper(text)
-			// if text == "" {
-			// 	fmt.Println("Text Block Can Not Be Empty")
-			// }
-			fmt.Println(text)
+			toUpper()
 		case 2:
-			fmt.Println("===> ToLower ===>")
-			fmt.Print("Enter Text: ")
-			text, _ = reader.ReadString('\n')
-			text = strings.ToLower(text)
-			fmt.Println(text)
+			toLower()
 		case 3:
-
-			fmt.Println("===> ToCap ===>")
-			fmt.Print("Enter Text: ")
-			text, err = reader.ReadString('\n')
-			if err != nil {
-				fmt.Println("Error Reading Text")
-			}
-			text = strings.TrimSpace(text)
-			if text == "" {
-				fmt.Println("Text Block Can Not Be Empty")
-				continue
-			}
-
-			word := strings.Fields(text)
-			for i := range word {
-				word[i] = strings.ToUpper(string(word[i][0])) + strings.ToLower(word[i][1:])
-				fmt.Println(word)
-				break
-			}
-
+			toCap()
+		case 4:
+			toTitle()
 		}
 
 	}
