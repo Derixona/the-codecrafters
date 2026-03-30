@@ -57,6 +57,8 @@ textblock:
 	}
 	fmt.Println(word)
 }
+
+/*
 func toTitle() {
 
 	fmt.Println("===> ToTitle ===>")
@@ -73,17 +75,46 @@ func toTitle() {
 		"for": true, "nor": true, "on": true, "at": true, "to": true, "by": true, "in": true, "of": true, "up": true, "as": true, "is": true, "it": true}
 
 	for i, char:=range words{
-		for i == len(words)-1{
-			if i ==
+		for lower := strings.ToLower(text){
+			if !lower || i !=0{
+				fmt.Println(lower)
+			}else{
+				fmt.Println(strings.ToTitle(lower))
+			}
+
 		}
 	}
 	}
 
-	
 }
+*/
+
 func toSnake() {
-	text = strings.ReplaceAll(text, " ", "_")
-	fmt.Println(text)
+textblock:
+	fmt.Println("===> ToSnake ===>")
+	fmt.Print("Enter Text: ")
+	text, err = reader.ReadString('\n')
+	if err != nil {
+		fmt.Println("Error Reading Text")
+	}
+	text = strings.TrimSpace(text)
+	if text == "" {
+		fmt.Println("Text Block Can Not Be Empty")
+		goto textblock
+	}
+	//alert_level_5_detected
+	text = strings.ReplaceAll(text, "!", "")
+	text = strings.ToLower(text)
+
+	if text == "_" {
+		word := strings.ReplaceAll(text, "_", " ")
+		fmt.Print(word)
+
+	} else {
+		words := strings.Fields(text)
+		fmt.Println(strings.Join(words, "_"))
+	}
+
 }
 
 func main() {
@@ -114,8 +145,11 @@ func main() {
 			toLower()
 		case 3:
 			toCap()
-		case 4:
-			toTitle()
+		/*case 4:
+		toTitle()*/
+		case 5:
+			toSnake()
+
 		}
 
 	}
