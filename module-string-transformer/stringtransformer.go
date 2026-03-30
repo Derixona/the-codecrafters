@@ -72,12 +72,14 @@ func toTitle() {
 	words := map[string]bool{
 		"for": true, "nor": true, "on": true, "at": true, "to": true, "by": true, "in": true, "of": true, "up": true, "as": true, "is": true, "it": true}
 
-	if strings.ContainsAny(text, words[0]) {
-		text = strings.ToLower(text[:1])
+	for i, char:=range words{
+		for i == len(words)-1{
+			if i ==
+		}
+	}
 	}
 
-	text = strings.ToUpper(text)
-	fmt.Println(text)
+	
 }
 func toSnake() {
 	text = strings.ReplaceAll(text, " ", "_")
